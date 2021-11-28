@@ -1,18 +1,42 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+   <b-container>
+  <b-row ><b-col ><div class="wrap_place plas_place"> <b-icon icon="plus-square" variant="success" class="h2 mb-0"></b-icon></div></b-col>
+      </b-row>
+</b-container>
+    <b-contaner>
+      <div class="wrap_place plas_place">
+    <div style="height: 500px;width:100%; position: relative;">
+    <vue-draggable-resizable :x="25" :y="0" :w="100" :h="100" @dragging="onDrag" @resizing="onResize" :parent="true" style="border-radius:10px;">
+      <div class="into_block">Hello! I'm a flexible component1. You can drag me around and you can resize me.<br>
+      X: {{ x }} / Y: {{ y }} - Width: {{ width }} / Height: {{ height }}</div >
+    </vue-draggable-resizable>
+    <vue-draggable-resizable :x="55" :y="0"  :w="100" :h="100" @dragging="onDrag" @resizing="onResize" :parent="true" class="square" style="border-radius:10px;">
+      <div class="into_block">Hello! I'm a flexible component2. You can drag me around and you can resize me.<br>
+      X: {{ x }} / Y: {{ y }} - Width: {{ width }} / Height: {{ height }}</div >
+    </vue-draggable-resizable>
+    <vue-draggable-resizable :x="85" :y="0"  :w="100" :h="100" @dragging="onDrag" @resizing="onResize" :parent="true" class="square" style="border-radius:10px;">
+      <div class="into_block">Hello! I'm a flexible component3. You can drag me around and you can resize me.<br>
+      X: {{ x }} / Y: {{ y }} - Width: {{ width }} / Height: {{ height }}</div >
+    </vue-draggable-resizable>
+    </div>
+    </div>
+    </b-contaner>
+</div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+      },
+      data() {
+        return{
+          
+        }
+      }
 }
 </script>
 
@@ -24,5 +48,30 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+Roman Pr, [28.11.2021 19:53]
+.square {
+  
+
+}
+.wrap_blocks{
+  display: flex;
+  background-color: #ddeecc;
+  margin-left:10px;
+  margin-right:10px;
+}
+.plas_place {
+  margin: 5px;
+  padding: 5px;
+  background-color: #ddeecc;
+   display: flex;
+  flex-direction: row;
+}
+.into_block {
+  width:100%;
+  height:100%;
+  overflow: hidden;
+  border-radius:10px;
+   background-color: #828e6f;
 }
 </style>
