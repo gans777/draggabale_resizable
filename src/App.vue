@@ -1,7 +1,11 @@
 <template>
   <div id="app">
    <b-container>
-  <b-row ><b-col ><div class="wrap_place plas_place"> <b-icon icon="plus-square" variant="success" class="h2 mb-0"></b-icon></div></b-col>
+  <b-row ><b-col ><div class="wrap_place plas_place"> <b-icon icon="plus-square" variant="success" class="h1 mb-0" @click="add_directory"></b-icon></div>
+<b-modal id="create_dir" title="BootstrapVue">
+    <p class="my-4">тут создание и первичное заполнение нового списка</p>
+  </b-modal>
+  </b-col>
       </b-row>
 </b-container>
     <b-contaner>
@@ -34,7 +38,12 @@ export default {
       },
       data() {
         return{
-          
+
+        }
+      },
+      methods: {
+        add_directory(){
+          this.$bvModal.show('create_dir');
         }
       }
 }
@@ -49,7 +58,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-Roman Pr, [28.11.2021 19:53]
+
 .square {
   
 
