@@ -8,24 +8,17 @@
   </b-col>
       </b-row>
 </b-container>
-    <b-contaner>
+    
       <div class="wrap_place plas_place">
     <div style="height: 500px;width:100%; position: relative;">
-    <vue-draggable-resizable :x="25" :y="0" :w="100" :h="100" @dragging="onDrag" @resizing="onResize" :parent="true" style="border-radius:10px;">
-      <div class="into_block">Hello! I'm a flexible component1. You can drag me around and you can resize me.<br>
-      X: {{ x }} / Y: {{ y }} - Width: {{ width }} / Height: {{ height }}</div >
+    <vue-draggable-resizable v-for="(coord,index) in everythinkDraggCoords" :key="index"   :x="coord.x" :y="coord.y" :w="coord.w" :h="coord.h"   :parent="true" @activated="onActivated(index)" @dragging="onDrag" @resizing="onResize"  @deactivated = "onDeactivated()"  style="border-radius:10px;">
+      <div class="into_block">Hello! I'm a flexible component1. You can drag me around and you can resize me X: {{ coord.x }} / Y: {{ coord.y }} - Width: {{ coord.w }} / Height: {{ coord.h }}
+      </div >
     </vue-draggable-resizable>
-    <vue-draggable-resizable :x="55" :y="0"  :w="100" :h="100" @dragging="onDrag" @resizing="onResize" :parent="true" class="square" style="border-radius:10px;">
-      <div class="into_block">Hello! I'm a flexible component2. You can drag me around and you can resize me.<br>
-      X: {{ x }} / Y: {{ y }} - Width: {{ width }} / Height: {{ height }}</div >
-    </vue-draggable-resizable>
-    <vue-draggable-resizable :x="85" :y="0"  :w="100" :h="100" @dragging="onDrag" @resizing="onResize" :parent="true" class="square" style="border-radius:10px;">
-      <div class="into_block">Hello! I'm a flexible component3. You can drag me around and you can resize me.<br>
-      X: {{ x }} / Y: {{ y }} - Width: {{ width }} / Height: {{ height }}</div >
-    </vue-draggable-resizable>
+   
     </div>
     </div>
-    </b-contaner>
+    
 </div>
 </template>
 
@@ -38,10 +31,47 @@ export default {
       },
       data() {
         return{
-
+        id_block_emphasized: null,
+        everythinkDraggCoords:[
+                {id:1,x:250,y:250,w:100,h:100},
+                {id:2,x:55,y:0,w:100,h:150},
+                {id:3,x:55,y:200,w:100,h:200}
+                            ]
         }
       },
+      mounted() {
+      //  let user = JSON.parse( sessionStorage.user );
+
+        let everythinkDraggCoords=localStorage.getItem('everythinkDraggCoords');
+        if (everythinkDraggCoords===null){ return;}
+        this.everythinkDraggCoords=JSON.parse(everythinkDraggCoords);
+      
+        console.log(JSON.parse(everythinkDraggCoords));
+        
+      },
       methods: {
+        onActivated(index){
+          console.log(index + "= cliked");
+          this.id_block_emphasized=index;
+        },
+        onDrag(x,y){
+         // console.log(x +" "+ y+ w+" "+h);
+         this.everythinkDraggCoords[this.id_block_emphasized].x=x;
+          this.everythinkDraggCoords[this.id_block_emphasized].y=y;
+         
+        },
+        onResize(x, y, w, h){
+          this.everythinkDraggCoords[this.id_block_emphasized].x=x;
+          this.everythinkDraggCoords[this.id_block_emphasized].y=y;
+          this.everythinkDraggCoords[this.id_block_emphasized].w=w;
+          this.everythinkDraggCoords[this.id_block_emphasized].h=h;
+        },
+        onDeactivated(){
+          
+         localStorage.setItem('everythinkDraggCoords', JSON.stringify(this.everythinkDraggCoords));
+          //console.log(JSON.stringify(this.everythinkDraggCoords));
+
+        },
         add_directory(){
           this.$bvModal.show('create_dir');
         }
