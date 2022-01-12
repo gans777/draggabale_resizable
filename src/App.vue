@@ -1,5 +1,6 @@
 <template >
   <div id="app">
+    <Avtoriz @login='onLogin'/>
    <b-container>
   <b-row ><b-col ><div class="wrap_place plas_place"> <b-icon icon="plus-square" variant="success" class="h1 mb-0" @click="add_directory()"></b-icon></div>
 <b-modal id="create_dir" title="BootstrapVue">
@@ -37,15 +38,17 @@
    <hr>
    <b-button variant="outline-primary" @click="tmp_localStorageClear" v-if="tmp_localStorage_Clear">очистить память браузера</b-button> 
    <b-button v-else>очищено</b-button>
+
 </div>
 </template>
 
 <script>
 
-
+import Avtoriz from './components/Avtoriz.vue'
 export default {
   name: 'App',
   components: {
+     Avtoriz
       },
       data() {
         return{
@@ -71,6 +74,9 @@ export default {
         
       },
       methods: {
+        onLogin (data) {
+          console.log('child component said login', data)
+       },
         tmp_localStorageClear(){
           localStorage.clear();
           this.tmp_localStorage_Clear=false;
