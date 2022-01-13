@@ -1,6 +1,7 @@
 <template >
   <div id="app">
     <Avtoriz @login='onLogin'/>
+    <div class="wrap_all" v-if="avtoriz_on">
    <b-container>
   <b-row ><b-col ><div class="wrap_place plas_place"> <b-icon icon="plus-square" variant="success" class="h1 mb-0" @click="add_directory()"></b-icon></div>
 <b-modal id="create_dir" title="BootstrapVue">
@@ -38,7 +39,7 @@
    <hr>
    <b-button variant="outline-primary" @click="tmp_localStorageClear" v-if="tmp_localStorage_Clear">очистить память браузера</b-button> 
    <b-button v-else>очищено</b-button>
-
+</div>
 </div>
 </template>
 
@@ -52,6 +53,7 @@ export default {
       },
       data() {
         return{
+        avtoriz_on: false,
         tmp_localStorage_Clear:true,
         new_window_text:'',
         last_id:null,
@@ -76,6 +78,8 @@ export default {
       methods: {
         onLogin (data) {
           console.log('child component said login', data)
+          if (data.login==false) {this.avtoriz_on=false}else{
+          this.avtoriz_on=true;}
        },
         tmp_localStorageClear(){
           localStorage.clear();
@@ -122,7 +126,7 @@ export default {
          this.$bvModal.hide('create_dir');
          this.new_window_text='';
         },
-         isEmpty(obj) {
+         isEmpty(obj) { //проверка на пустоту объекта
          for (let key in obj) {
           // если тело цикла начнет выполняться - значит в объекте есть свойства
           return false;
